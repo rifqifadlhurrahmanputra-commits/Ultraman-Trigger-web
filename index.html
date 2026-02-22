@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultraman Trigger. Web | Fanmake</title>
+<link rel="icon" type="image/png" href="logo.jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --cyan:#00f0ff;
+    --red:#ff003c;
+    --gold:#ffd700;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* PARTICLES */
+#particles{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+/* NAV */
+nav{
+    position:fixed;
+    top:15px; /* kasih jarak dari atas */
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(15px);
+    z-index:1000;
+}
+nav{
+    border-radius:20px;
+    margin:0 20px;
+}
+.logo{
+    font-family:'Orbitron';
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.nav-links{
+    display:flex;
+    gap:40px;
+    list-style:none;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    position:relative;
+}
+
+.nav-links a::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:2px;
+    bottom:-5px;
+    left:0;
+    background:var(--cyan);
+    transition:0.3s;
+}
+
+.nav-links a:hover::after{width:100%}
+
+.menu{
+    display:none;
+    flex-direction:column;
+    gap:6px;
+    cursor:pointer;
+}
+
+.menu div{
+    width:25px;
+    height:3px;
+    background:white;
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-family:'Orbitron';
+    font-size:4rem;
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 10px var(--cyan);}
+    to{text-shadow:0 0 50px var(--cyan),0 0 80px var(--cyan);}
+}
+
+.hero p{
+    margin-top:20px;
+    opacity:0.8;
+    letter-spacing:3px;
+}
+
+/* SECTION */
+.section{
+    padding:120px 10%;
+}
+
+/* STORY */
+.story-container{
+    display:flex;
+    gap:60px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.story-text{flex:1}
+.story-text h2{
+    font-family:'Orbitron';
+    margin-bottom:20px;
+}
+.story-text p{
+    margin-bottom:20px;
+    line-height:1.8;
+    opacity:0.8;
+}
+
+.story-image{flex:1;text-align:center}
+.story-image img{
+    width:1050px;
+    height:500px;        /* tinggi tetap */
+    object-fit:cover;    /* biar gak gepeng */
+    border-radius:12px;
+}   
+
+/* FORMS */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:40px;
+}
+
+.form-card{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    transition:0.4s;
+}
+
+.form-card:hover{
+    box-shadow:0 0 40px rgba(0,240,255,0.4);
+}
+
+.form-card img{
+    width:100%;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+/* STATS */
+.stats{
+    margin-top:40px;
+}
+
+.bar{
+    margin-bottom:20px;
+}
+
+.bar span{
+    display:block;
+    margin-bottom:5px;
+}
+
+.progress{
+    height:8px;
+    background:#111;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress div{
+    height:100%;
+    background:linear-gradient(90deg,var(--red),var(--cyan));
+    animation:pulse 2s infinite alternate;
+}
+
+@keyframes pulse{
+    from{filter:brightness(1);}
+    to{filter:brightness(1.6);}
+}
+
+/* CTA */
+.cta{
+    text-align:center;
+    margin-top:100px;
+}
+
+.cta button{
+    padding:15px 40px;
+    border:2px solid var(--cyan);
+    background:transparent;
+    color:var(--cyan);
+    font-family:'Orbitron';
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.cta button:hover{
+    background:var(--cyan);
+    color:black;
+    box-shadow:0 0 40px var(--cyan);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .nav-links{
+        position:absolute;
+        top:80px;
+        right:0;
+        flex-direction:column;
+        background:#000;
+        width:200px;
+        padding:20px;
+        display:none;
+    }
+    .nav-links.active{display:flex}
+    .menu{display:flex}
+    .hero h1{font-size:2.2rem}
+}
+
+/* BANNER */
+.banner{
+    width:100%;
+    height:300px;
+    background:url('banner.jpeg') center/cover no-repeat;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:80px; /* biar gak ketutup navbar */
+}
+
+.banner-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.banner h2{
+    font-family:'Orbitron';
+    font-size:2rem;
+    letter-spacing:4px;
+    text-shadow:0 0 20px var(--cyan);
+}
+.form-grid{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    align-items:flex-start;
+    flex-wrap:wrap;
+}
+
+.form-card{
+    width:250px;
+    cursor:pointer;
+    transition:0.5s;
+}
+
+.form-card.active{
+    width:400px;
+}
+
+.form-card img{
+    width:100%;
+    border-radius:15px;
+}
+
+.form-description{
+    max-width:400px;
+    display:none;
+    opacity:0;
+    transform:translateX(50px);
+    transition:0.5s;
+}
+
+.form-description.show{
+    display:block;
+    opacity:1;
+    transform:translateX(0);
+}
+/* THEME COLORS */
+body.power-mode{
+    background: radial-gradient(circle at center, #300000, #000);
+}
+
+body.sky-mode{
+    background: radial-gradient(circle at center, #001a30, #000);
+}
+
+body.eternity-mode{
+    background: radial-gradient(circle at center, #3a2d00, #000);
+}
+body.default-mode{
+    background:#000;
+}
+.section{
+    opacity:0;
+    transform:translateY(60px);
+    transition:0.8s ease;
+}
+
+.section.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.section:nth-child(odd){
+    transition-delay:0.2s;
+}
+
+.section:nth-child(even){
+    transition-delay:0.4s;
+}
+.character-detail{
+    max-width:400px;
+    margin:40px auto 0 auto;
+    padding:25px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+
+    opacity:0;
+    transform:translateY(40px);
+    transition:0.6s ease;
+    text-align:center;
+}
+
+.character-detail.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.character-detail.show{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.form-card.character-active{
+    transform:scale(1.15);
+    box-shadow:0 0 50px rgba(0,240,255,0.7);
+}
+#enemies .form-card{
+    background:rgba(255,0,0,0.08);
+}
+
+#enemies .form-card:hover{
+    box-shadow:0 0 50px rgba(255,0,60,0.7);
+}
+#trailer iframe{
+  border-radius:20px;
+  box-shadow:0 0 60px rgba(0,240,255,0.5);
+}
+#footer{
+    background:linear-gradient(to top,#000,#001a1f);
+    padding:60px 10%;
+    margin-top:120px;
+    width:100%;
+    position:relative;
+    left:0;
+    right:0;
+}
+.section{
+opacity:0;
+transform:translateY(80px);
+transition:all 0.9s cubic-bezier(.25,.8,.25,1);
+}
+
+.section.show{
+opacity:1;
+transform:translateY(0);
+}
+.hero-btns{
+margin-top:30px;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero-btns a{
+padding:12px 25px;
+border:2px solid var(--cyan);
+color:white;
+text-decoration:none;
+font-family:'Orbitron';
+letter-spacing:2px;
+border-radius:30px;
+transition:0.4s;
+backdrop-filter:blur(10px);
+}
+
+.hero-btns a:hover{
+background:var(--cyan);
+color:black;
+box-shadow:0 0 30px var(--cyan);
+transform:translateY(-3px);
+}
+.hero-btns a:active{
+transform:scale(0.95);
+}
+</style>
+</head>
+
+<body class="default-mode">
+
+<canvas id="particles"></canvas>
+
+<nav>
+<div class="logo">ULTRAMAN TRIGGER.WEB</div>
+
+<ul class="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#story">Story</a></li>
+<li><a href="#forms">Forms</a></li>
+<li><a href="#guts">GUTS</a></li>
+<li><a href="#enemies">Enemy</a></li>
+<li><a href="#trailer">Trailer</a></li>
+</ul>
+
+<div class="menu" id="menuBtn">
+<div></div><div></div><div></div>
+</div>
+</nav>
+<section class="banner">
+    <div class="banner-overlay">
+    </div>
+</section>
+<section class="hero" id="home">
+<h1>ULTRAMAN TRIGGER</h1>
+<p>LIGHT BEYOND DARKNESS</p>
+
+<div class="hero-btns">
+<a href="#story">Story</a>
+<a href="#forms">Forms Trigger</a>
+<a href="#guts">GUTS</a>
+<a href="#enemies">Enemy</a>
+<a href="#trailer">Trailer</a>
+</div>
+
+</section>
+
+<section class="section" id="story">
+<div class="story-container">
+<div class="story-text">
+<h2>The Rise of Ancient Light</h2>
+<p>Ultraman Trigger: New Generation Tiga tells the story of Kengo Manaka, 
+    a young man whose motto is “Smile, Smile!” and who lives in a time when humanity has expanded to Mars under the protection of the defense team GUTS-Select,
+    but their peace is shattered by the return of the three Dark Giants Carmeara, Darrgon, and Hudram ancient beings from a war between light and darkness that occurred 300 million years ago.
+    as the threat rises, Kengo discovers that he carries the power of light and transforms into Ultraman Trigger to protect the people he cares about,
+    fighting in multiple forms such as Multi Type, Power Type, Sky Type, and the powerful Glitter Trigger Eternity, while the truth about his past connection with Carmeara gradually unfolds,
+    leading to an emotional conflict between his personal feelings and his duty as Earth’s protector, creating a story filled with action, drama, and hope.
+
+</p>
+
+</div>
+<div class="story-image">
+<img src="story.jpg">
+</div>
+</div>
+</section>
+
+<section class="section" id="forms">
+<h2 style="font-family:Orbitron;margin-bottom:40px;text-align:center;">Transformation Forms</h2>
+
+<div class="form-grid">
+    <div class="form-description" id="formDesc">
+  <h3 id="formTitle"></h3>
+  <p id="formText"></p>
+</div>
+<div class="form-card">
+<img src="power.jpeg">
+<h3>Power Type</h3>
+<p>Close-range powerhouse form.</p>
+</div>
+
+<div class="form-card">
+<img src="sky.jpeg">
+<h3>Sky Type</h3>
+<p>Speed and aerial combat specialist.</p>
+</div>
+
+<div class="form-card">
+<img src="eternity.jpeg">
+<h3>Eternity</h3>
+<p>Ultimate radiant evolution.</p>
+</div>
+</div>
+
+<div class="stats">
+<div class="bar">
+<span>Power</span>
+<div class="progress power-bar"><div></div></div>
+</div>
+
+<div class="bar">
+<span>Speed</span>
+<div class="progress speed-bar"><div></div></div>
+</div>
+
+<div class="bar">
+<span>Energy</span>
+<div class="progress energy-bar"><div></div></div>
+</div>
+</div>
+<div class="cta">
+<button>ACTIVATE FINAL FORM</button>
+</div>
+<section class="section" id="guts">
+
+<h2 style="font-family:Orbitron;margin-bottom:40px;text-align:center;">
+GUTS-Select
+</h2>
+
+<div class="form-grid">
+
+<div class="form-card">
+<img src="kengo.jpeg">
+<h3>Kengo Manaka</h3>
+<p>Main protagonist and bearer of light.</p>
+</div>
+
+<div class="form-card">
+<img src="yuna.jpeg">
+<h3>Yuna Shizuma</h3>
+<p>Elite pilot and strong-willed GUTS member.</p>
+</div>
+
+<div class="form-card">
+<img src="sakuma.jpeg">
+<h3>Takuma Shindo</h3>
+<p>Weapons specialist and tactical fighter.</p>
+</div>
+
+<div class="form-card">
+<img src="akito.jpeg">
+<h3>Akito Hijiri</h3>
+<p>Engineer and tech support expert.</p>
+</div>
+<div class="form-card">
+<img src="seiya.jpeg">
+<h3>Seiya Tatsumi</h3>
+<p>Tactical combat specialist and frontline fighter.</p>
+</div>
+
+<div class="form-card">
+<img src="himari.jpeg">
+<h3>Himari Nanase</h3>
+<p>GUTS-Select operations and data analysis support.</p>
+</div>
+
+<div class="form-card">
+<img src="marluruuu.jpeg">
+<h3>Marlulu</h3>
+<p>Alien ally providing technical and communication support.</p>
+</div>
+</div>
+</section>
+<div class="character-detail" id="charDetail">
+
+<h3 id="charName"></h3>
+<h4 id="charRole"></h4>
+<p id="charDesc"></p>
+
+</div>
+<section class="section" id="enemies">
+
+<h2 style="font-family:Orbitron;margin-bottom:40px;text-align:center;">
+Dark Giants
+</h2>
+
+<div class="form-grid">
+
+<div class="form-card">
+<img src="carmaera.jpeg">
+<h3>Carmeara</h3>
+<p>Leader of the Dark Giants, obsessed with Trigger's past light.</p>
+</div>
+
+<div class="form-card">
+<img src="hudram.jpeg">
+<h3>Hudram</h3>
+<p>Cunning and cruel Dark Giant who enjoys manipulation.</p>
+</div>
+
+<div class="form-card">
+<img src="darrgon.jpeg">
+<h3>Darrgon</h3>
+<p>Honorable warrior who seeks worthy opponents in battle.</p>
+</div>
+
+</div>
+</section>
+<section class="section" id="trailer">
+  <h2 style="font-family:Orbitron;margin-bottom:40px;text-align:center;">
+    Watch Trailer
+  </h2>
+
+  <div style="display:flex;justify-content:center;">
+    <iframe
+      width="900"
+      height="500"
+      src="https://www.youtube.com/embed/e8t11bHQOQg"
+      title="Ultraman Trigger Trailer"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+<section class="section" id="footer">
+
+<h2 style="font-family:Orbitron;text-align:center;margin-bottom:30px;">
+ULTRAMAN TRIGGER.WEB
+</h2>
+
+<p style="text-align:center;opacity:0.7;max-width:600px;margin:auto;line-height:1.8;">
+Ultraman Trigger fan project website.<br>
+Light will always overcome darkness.
+</p>
+
+<p style="text-align:center;margin-top:40px;opacity:0.5;">
+© 2026 Codiven Fan Project
+</p>
+
+</section>
+
+<script>
+const characterData = {
+
+"Kengo Manaka":{
+desc:"Bearer of light and main protagonist of GUTS-Select.",
+role:"Ultraman Trigger Host"
+},
+
+"Yuna Shizuma":{
+desc:"Elite pilot and strong-willed combat member.",
+role:"Combat Pilot"
+},
+
+"Takuma Shindo":{
+desc:"Weapons specialist and tactical fighter.",
+role:"Tactical Fighter"
+},
+
+"Akito Hijiri":{
+desc:"Engineer and technology support expert.",
+role:"Engineer"
+},
+
+"Seiya Tatsumi":{
+desc:"Frontline combat specialist and tactical warrior.",
+role:"Combat Specialist"
+},
+
+"Himari Nanase":{
+desc:"Operations analyst and mission support operator.",
+role:"Data Analyst"
+},
+
+"Marlulu":{
+desc:"Alien ally providing communication and technical support.",
+role:"Support Ally"
+}
+
+};
+const sections = document.querySelectorAll(".section");
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+},{
+threshold:0.2
+});
+
+sections.forEach(section=>{
+observer.observe(section);
+});
+
+/* HAMBURGER */
+const menuBtn=document.getElementById("menuBtn");
+const navLinks=document.querySelector(".nav-links");
+menuBtn.addEventListener("click",()=>{navLinks.classList.toggle("active");});
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+class Particle{
+constructor(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height;
+this.size=Math.random()*2+1;
+this.speedY=Math.random()*1+0.5;
+}
+update(){
+this.y-=this.speedY;
+if(this.y<0){
+this.y=canvas.height;
+this.x=Math.random()*canvas.width;
+}
+}
+draw(){
+ctx.fillStyle="#00f0ff";
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+ctx.fill();
+}
+}
+
+function init(){
+for(let i=0;i<150;i++){particles.push(new Particle());}
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{p.update();p.draw();});
+requestAnimationFrame(animate);
+}
+
+init();
+animate();
+const cards = document.querySelectorAll(".form-card");
+const formDesc = document.getElementById("formDesc");
+const formTitle = document.getElementById("formTitle");
+const formText = document.getElementById("formText");
+const powerBar = document.querySelector(".power-bar div");
+const speedBar = document.querySelector(".speed-bar div");
+const energyBar = document.querySelector(".energy-bar div");
+const charDetail = document.getElementById("charDetail");
+const charName = document.getElementById("charName");
+const charRole = document.getElementById("charRole");
+const charDesc = document.getElementById("charDesc");
+
+const charCards = document.querySelectorAll("#guts .form-card");
+
+charCards.forEach(card=>{
+card.addEventListener("click",()=>{
+
+const name = card.querySelector("h3").innerText;
+
+charName.innerText = name;
+charRole.innerText = "";
+charDesc.innerText = "";
+
+charDetail.classList.add("show");
+
+charCards.forEach(c=>c.classList.remove("character-active"));
+card.classList.add("character-active");
+
+});
+});
+const data = {
+  "Power Type": {
+    desc: "Massive close combat strength. Heavy destructive attacks.",
+    power: "95%",
+    speed: "60%",
+    energy: "80%"
+  },
+
+  "Sky Type": {
+    desc: "Extreme speed and aerial combat specialist.",
+    power: "70%",
+    speed: "95%",
+    energy: "75%"
+  },
+
+  "Eternity": {
+    desc: "Ultimate radiant evolution form.",
+    power: "100%",
+    speed: "100%",
+    energy: "100%"
+  }
+};
+
+let activeCard = null;
+
+cards.forEach(card=>{
+  card.addEventListener("click",()=>{
+
+    const title = card.querySelector("h3").innerText;
+
+if(activeCard === card){
+  card.classList.remove("active");
+  formDesc.classList.remove("show");
+
+  document.body.classList.remove(
+    "power-mode",
+    "sky-mode",
+    "eternity-mode"
+  );
+
+  document.body.classList.add("default-mode");
+
+  activeCard = null;
+  return;
+}
+    cards.forEach(c=>c.classList.remove("active"));
+
+    card.classList.add("active");
+    activeCard = card;
+
+    formTitle.innerText = title;
+    formText.innerText = data[title].desc;
+
+    const stats = data[title];
+
+    powerBar.style.width = stats.power;
+    speedBar.style.width = stats.speed;
+    energyBar.style.width = stats.energy;
+
+    formDesc.classList.add("show");
+
+    if(title.includes("Power")){
+        document.body.className = "power-mode";
+    }
+    else if(title.includes("Sky")){
+        document.body.className = "sky-mode";
+    }
+    else{
+        document.body.className = "eternity-mode";
+    }
+
+
+const name = card.querySelector("h3").innerText;
+
+if(charDetail){
+charName.innerText = name;
+charRole.innerText = characterData[name]?.role || "";
+charDesc.innerText = characterData[name]?.desc || "";
+
+charDetail.classList.add("show");
+}
+
+charCards.forEach(c=>c.classList.remove("character-active"));
+card.classList.add("character-active");
+
+});
+});
+function updateTitle(){
+    const hash = location.hash;
+
+    const titles = {
+        "#story":"Story | Ultraman Trigger",
+        "#forms":"Forms | Ultraman Trigger",
+        "#guts":"GUTS-Select | Ultraman Trigger",
+        "#enemies":"Dark Giants | Ultraman Trigger",
+        "#trailer":"Trailer | Ultraman Trigger",
+        "#home":"Ultraman Trigger | Fanmake"
+    };
+
+    document.title = titles[hash] || "Ultraman Trigger | Fanmake";
+}
+
+window.addEventListener("load", updateTitle);
+window.addEventListener("hashchange", updateTitle);
+</script>
+
+</body>
+</html>
